@@ -9,7 +9,7 @@ export enum CoinSymbol {
   SUI = 'SUI',
 }
 
-export type GetOwnedObjParams = { network: Network; address: string };
+type GetOwnedObjParams = { network: Network; address: string };
 
 async function getCoinsBalance(
   params: GetOwnedObjParams

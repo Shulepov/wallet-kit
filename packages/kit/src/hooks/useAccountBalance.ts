@@ -1,11 +1,7 @@
 import { Token } from '../constants/token';
 import { NetworkType } from '../core/types/network';
 import { useWallet } from './useWallet';
-import { useCoinBalance } from './useCoinBalance';
-
-export enum CoinSymbol {
-  SUI = 'SUI',
-}
+import { CoinSymbol, useCoinBalance } from './useCoinBalance';
 
 export function useAccountBalance(token = Token.SUI) {
   const { address, connected } = useWallet();
