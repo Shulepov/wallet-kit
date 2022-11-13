@@ -6,7 +6,7 @@ import { Network, NetworkType } from '../core/types/network';
 import { swrLoading } from '../utils/others';
 import { NftObject } from '../core/types/object';
 
-export type GetOwnedObjParams = { network: Network; address: string };
+type GetOwnedObjParams = { network: Network; address: string };
 
 async function getOwnedNfts(
   params: GetOwnedObjParams
@@ -26,29 +26,27 @@ export function useOwnedNfts({
   address: string;
   opts: {
     networkId?: string;
-    canFetch?: boolean;
   };
 }) {
   const [ownedNfts, setOwnedNfts] = useState<string>('0');
-  const { networkId = 'devnet', canFetch } = opts;
+  const { networkId = 'devnet' } = opts;
   const net = network.getNetwork(NetworkType.devnet);
   const {
     data: ownedNftsArr,
     error,
     isValidating,
   } = useSWR(
-    ['fetchOwnedObjects', address, network, canFetch],
+    [`b?network=${networkId}`, address, network],
     fetchOwnedObjects
   );
 
   async function fetchOwnedObjects(
     _: string,
     address: string,
-    network: Network,
-    canFetch = true
+    network: Network 
   ) {
     var arr = new Array<NftObject>();
-    if (!address || !network || !canFetch) return arr;
+    if (!address || !network) return arr;
 
     arr = await getOwnedNfts({ address, network: net });
     if (!arr) {
